@@ -1,4 +1,4 @@
-:: This file should be placed in the server's shell:startup folder.
+:: This file's shortcut should be placed in the server's shell:startup folder.
 @echo off
 
 cd /d "%~dp0"

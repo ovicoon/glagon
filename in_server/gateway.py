@@ -1,4 +1,4 @@
-# This file should be placed in the server's shell:startup folder.
+# This file should be placed with ngrok-auto.bat
 import base64
 import json
 import os
