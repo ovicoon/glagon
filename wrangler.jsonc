@@ -1,0 +1,13 @@
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "glagon",
+	"main": "src/index.js",
+	"compatibility_date": "2026-08-25",
+	"observability": {
+		"enabled": false
+	},
+	"upload_source_maps": true,
+	"vars": { 
+		"NGROK_URL": "https://confusion-risotto-cavalry.ngrok-free.dev/api/generate"
+	 },
+}
