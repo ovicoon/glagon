@@ -195,6 +195,82 @@ const html = `<!DOCTYPE html>
       opacity: 0.4;
       cursor: not-allowed;
     }
+    .terms-container {
+      text-align: center;
+      padding-top: 8px;
+    }
+
+    .terms-link {
+      width: auto;
+      height: auto;
+      padding: 2px 4px;
+      background: transparent;
+      border: none;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+    }
+
+    .terms-link:hover {
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+    }
+
+    .terms-modal {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 1000;
+    }
+
+    .terms-modal.open {
+      display: flex;
+    }
+
+    .terms-content {
+      position: relative;
+      width: min(520px, 100%);
+      max-height: 80vh;
+      overflow-y: auto;
+      padding: 28px;
+      background: #111114;
+      border: 1px solid var(--glass-border);
+      border-radius: var(--radius);
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+      line-height: 1.6;
+    }
+
+    .terms-content h2 {
+      margin-bottom: 18px;
+      font-size: 1.2rem;
+    }
+
+    .terms-content p {
+      margin-bottom: 14px;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .terms-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 32px;
+      height: 32px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-size: 1.5rem;
+    }
+
+    .terms-close:hover {
+      background: var(--glass-hover);
+      border: none;
+    }
   </style>
 </head>
 <body>
@@ -219,6 +295,26 @@ const html = `<!DOCTYPE html>
         <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
       </button>
     </div>
+    <div class="terms-container">
+      <button id="termsBtn" class="terms-link">Terms of Use</button>
+    </div>
+
+    <div id="termsModal" class="terms-modal" aria-hidden="true">
+      <div class="terms-content" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+        <button id="termsClose" class="terms-close" aria-label="Close">×</button>
+
+        <h2 id="termsTitle">Terms of Use</h2>
+
+        <p>
+          You are solely responsible for your use of this service and must comply
+          with all applicable laws, regulations, and policies.
+        </p>
+
+        <p>
+          <strong>Glagon is an AI model, not a person.</strong>
+        </p>
+      </div>
+    </div>
   </div>
 
   <script>
@@ -228,6 +324,9 @@ const html = `<!DOCTYPE html>
     const statusBadge = document.getElementById("statusBadge");
     const promptEl = document.getElementById("prompt");
     const sendBtn = document.getElementById("sendBtn");
+    const termsBtn = document.getElementById("termsBtn");
+  const termsModal = document.getElementById("termsModal");
+  const termsClose = document.getElementById("termsClose");
 
     let serverPublicKey = null;
 
@@ -380,14 +479,33 @@ const html = `<!DOCTYPE html>
       }
     }
 
-    // 초기화 및 이벤트 리스너
+    // --- 초기화 및 이벤트 리스너 ---
     initSecureSession();
 
     sendBtn.addEventListener("click", sendPrompt);
+
     promptEl.addEventListener("keydown", function(e) {
       if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
         sendPrompt();
+      }
+    });
+
+    // Terms of Use
+    termsBtn.addEventListener("click", () => {
+      termsModal.classList.add("open");
+      termsModal.setAttribute("aria-hidden", "false");
+    });
+
+    termsClose.addEventListener("click", () => {
+      termsModal.classList.remove("open");
+      termsModal.setAttribute("aria-hidden", "true");
+    });
+
+    termsModal.addEventListener("click", (e) => {
+      if (e.target === termsModal) {
+        termsModal.classList.remove("open");
+        termsModal.setAttribute("aria-hidden", "true");
       }
     });
   </script>
