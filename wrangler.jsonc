@@ -8,6 +8,6 @@
 	},
 	"upload_source_maps": true,
 	"vars": { 
-		"NGROK_URL": "https://confusion-risotto-cavalry.ngrok-free.dev/api/generate"
+		"NGROK_URL": "https://confusion-risotto-cavalry.ngrok-free.dev"
 	 },
 }
