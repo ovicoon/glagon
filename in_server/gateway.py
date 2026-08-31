@@ -85,8 +85,23 @@ async def proxy_generate(request: Request):
             payload_data["model"] = "ministral-3:3b"
         payload_data["stream"] = False
 
+        system_instruction = payload_data.get("system")
+        if system_instruction:
+            payload_data["system"] = system_instruction
+
+        options = payload_data.get("options", {})
+
+        if "temperature" in payload_data:
+            options["temperature"] = payload_data.pop("temperature")
+        if "top_p" in payload_data:
+            options["top_p"] = payload_data.pop("top_p")
+
+        payload_data["options"] = options
+
         # 3. Ollama 백엔드 호출
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(
+            timeout=httpx.Timeout(300.0, connect=10.0)
+        ) as client:
             response = await client.post(
                 f"{OLLAMA_URL}/api/generate",
                 json=payload_data,

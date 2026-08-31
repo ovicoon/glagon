@@ -304,6 +304,14 @@ const html = `<!DOCTYPE html>
         <p>
           <strong>Glagon is an AI model, not a person.</strong>
         </p>
+
+        <hr style="border: 0; border-top: 1px solid var(--glass-border); margin: 16px 0;" />
+    
+        <p style="font-size: 0.8rem; color: var(--text-muted);">
+          <strong>Open Source Attributions</strong><br>
+          This service uses the <strong>Ministral 3B</strong> model developed by <strong>Mistral AI</strong>, 
+          Licensed under the <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer" style="color: var(--text-main);">Apache License, Version 2.0</a>.
+        </p>
       </div>
     </div>
   </div>
@@ -420,7 +428,15 @@ const html = `<!DOCTYPE html>
 
         // 4. 데이터 암호화 (IV + Ciphertext)
         const iv = window.crypto.getRandomValues(new Uint8Array(12));
-        const encodedPrompt = new TextEncoder().encode(JSON.stringify({ prompt: promptText }));
+
+        const payloadData = {
+          prompt: promptText,
+          system: "You are Glagon, made by Zero Dragaon.",
+          temperature: 0.1,
+          top_p: 0.9
+        };
+
+        const encodedPrompt = new TextEncoder().encode(JSON.stringify(payloadData));
         const ciphertextBuffer = await window.crypto.subtle.encrypt(
           { name: "AES-GCM", iv: iv }, aesKey, encodedPrompt
         );
