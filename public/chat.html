@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Glagon — secure AI chat.">
+  <title>Glagon - Secure E2EE Chat</title>
+  <link rel="stylesheet" href="/css/common.css">
+  <link rel="stylesheet" href="/css/chat.css">
+</head>
+<body>
+  <a class="back-link" href="/" aria-label="Back to Glagon home">← Glagon</a>
+
+  <div class="app-container">
+    <header>
+      <div class="brand">
+        <h1>Glagon</h1>
+        <span class="open-source-tag">OSS</span>
+      </div>
+
+      <div id="statusBadge" class="status-badge">
+        <span id="statusText">CONNECTING...</span>
+      </div>
+    </header>
+
+    <div class="chat-container" id="chatLog" aria-live="polite"></div>
+
+    <div class="input-wrapper">
+      <textarea id="prompt" rows="1" placeholder="Type a message to Glagon..." aria-label="Message"></textarea>
+      <button id="sendBtn" type="button" disabled aria-label="Send message">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+        </svg>
+      </button>
+    </div>
+
+    <div class="terms-container">
+      <button id="termsBtn" class="terms-link" type="button">Terms of Use</button>
+    </div>
+
+    <div id="termsModal" class="terms-modal" aria-hidden="true">
+      <div class="terms-content" role="dialog" aria-modal="true" aria-labelledby="termsTitle">
+        <button id="termsClose" class="terms-close" type="button" aria-label="Close">×</button>
+
+        <h2 id="termsTitle">Terms of Use</h2>
+
+        <p>
+          You are solely responsible for your use of this service and must comply
+          with all applicable laws, regulations, and policies.
+        </p>
+
+        <p><strong>Glagon is an AI model, not a person.</strong></p>
+
+        <hr>
+
+        <p class="attribution">
+          <strong>Open Source Attributions</strong><br>
+          This service uses the <strong>Ministral 3B</strong> model developed by
+          <strong>Mistral AI</strong>, licensed under the
+          <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer">
+            Apache License, Version 2.0
+          </a>.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/chat.js" defer></script>
+</body>
+</html>

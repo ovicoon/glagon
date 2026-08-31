@@ -1,16 +1,12 @@
 {
   "name": "glagon",
-  "version": "0.0.0",
   "private": true,
+  "version": "1.0.0",
   "scripts": {
-    "deploy": "wrangler deploy",
     "dev": "wrangler dev",
-    "start": "wrangler dev",
-    "test": "vitest"
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
-    "@cloudflare/vitest-plugin": "^1.0.0",
-    "vitest": "~4.1.0",
-    "wrangler": "^4.127.1"
+    "wrangler": "latest"
   }
 }
