@@ -75,7 +75,9 @@ const html = `<!DOCTYPE html>
     }
 
     .status-badge {
-      font-size: 0.85rem;
+      font-size: 0.75rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
       padding: 6px 12px;
       border-radius: 20px;
       background: var(--glass-bg);
@@ -83,7 +85,6 @@ const html = `<!DOCTYPE html>
       color: var(--text-muted);
       display: flex;
       align-items: center;
-      gap: 6px;
       transition: color 0.3s ease;
     }
     .status-badge.ready { color: #4ade80; }
@@ -113,14 +114,6 @@ const html = `<!DOCTYPE html>
       font-size: 0.95rem;
       word-wrap: break-word;
       white-space: pre-wrap;
-    }
-
-    .message.system {
-      align-self: center;
-      background: transparent;
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      padding: 5px;
     }
 
     .message.user {
@@ -281,13 +274,11 @@ const html = `<!DOCTYPE html>
         <span class="open-source-tag">OSS</span>
       </div>
       <div id="statusBadge" class="status-badge">
-        <span id="statusIcon">⚪</span> <span id="statusText">Connecting...</span>
+        <span id="statusText">CONNECTING...</span>
       </div>
     </header>
 
-    <div class="chat-container" id="chatLog">
-      <div class="message system">Establishing E2EE secure connection...</div>
-    </div>
+    <div class="chat-container" id="chatLog"></div>
 
     <div class="input-wrapper">
       <textarea id="prompt" rows="1" placeholder="Type a message to Glagon..."></textarea>
@@ -320,23 +311,19 @@ const html = `<!DOCTYPE html>
   <script>
     const chatLog = document.getElementById("chatLog");
     const statusText = document.getElementById("statusText");
-    const statusIcon = document.getElementById("statusIcon");
     const statusBadge = document.getElementById("statusBadge");
     const promptEl = document.getElementById("prompt");
     const sendBtn = document.getElementById("sendBtn");
     const termsBtn = document.getElementById("termsBtn");
-  const termsModal = document.getElementById("termsModal");
-  const termsClose = document.getElementById("termsClose");
+    const termsModal = document.getElementById("termsModal");
+    const termsClose = document.getElementById("termsClose");
 
     let serverPublicKey = null;
 
     // --- UI 헬퍼 함수 ---
     function updateStatus(text, state) {
-      statusText.textContent = text;
+      statusText.textContent = text.toUpperCase();
       statusBadge.className = 'status-badge ' + state;
-      if (state === 'ready') statusIcon.textContent = '🔒';
-      else if (state === 'error') statusIcon.textContent = '⚠️';
-      else statusIcon.textContent = '⚪';
     }
 
     function addMessage(role, text) {
@@ -345,7 +332,7 @@ const html = `<!DOCTYPE html>
       msgDiv.textContent = text;
       chatLog.appendChild(msgDiv);
       chatLog.scrollTop = chatLog.scrollHeight;
-      return msgDiv; // 나중에 내용 수정(로딩 표시 등)을 위해 반환
+      return msgDiv;
     }
 
     // --- UX: 입력창 감지 및 자동 높이 조절 ---
@@ -394,7 +381,6 @@ const html = `<!DOCTYPE html>
         }
       } catch (e) {
         updateStatus("Connection Error", "error");
-        addMessage("system", "Failed to connect to the secure server.");
       }
     }
 
@@ -409,7 +395,7 @@ const html = `<!DOCTYPE html>
       sendBtn.disabled = true;
       promptEl.disabled = true;
 
-      const loadingMsg = addMessage("system", "Encrypting & Sending...");
+      updateStatus("Processing...", "ready");
 
       try {
         // 1. 브라우저 임시 KeyPair 생성
@@ -445,8 +431,6 @@ const html = `<!DOCTYPE html>
         const ciphertextB64 = arrayBufferToBase64(combined);
 
         // 5. 서버로 전송
-        loadingMsg.textContent = "Waiting for response...";
-        
         const response = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
@@ -465,11 +449,11 @@ const html = `<!DOCTYPE html>
           { name: "AES-GCM", iv: respIv }, aesKey, respCiphertext
         );
         
-        loadingMsg.remove(); // 로딩 메시지 제거
         addMessage("ai", new TextDecoder().decode(decryptedBuffer));
+        updateStatus("E2EE Active", "ready");
         
       } catch (error) {
-        loadingMsg.textContent = "Error: " + error.message;
+        updateStatus("Connection Error", "error");
         console.error(error);
       } finally {
         promptEl.disabled = false;
