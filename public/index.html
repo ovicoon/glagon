@@ -9,26 +9,60 @@
   <link rel="stylesheet" href="/css/landing.css">
 </head>
 <body>
-  <main class="landing">
-    <section class="landing-main">
-      <div class="brand">
-        <span class="brand-name">Glagon</span>
+  <div class="cursor-spotlight" aria-hidden="true"></div>
+  
+  <main class="landing-container">
+    
+    <!-- Section 1 -->
+    <section class="landing-section">
+      <div class="landing-content fade-in">
+        <div class="brand">
+          <span class="brand-name">Glagon</span>
+        </div>
+
+        <h1><span class="glow-text">Glass Clear</span> AI</h1>
+
+        <p class="subtitle">Free. Open-source. Non-profit AI.</p>
+
+        <a class="try-button" href="/chat" aria-label="Try Glagon">
+          Try Glagon
+        </a>
       </div>
 
-      <h1>We’ll Tell You Everything We Know.</h1>
-
-      <p class="subtitle">Free. Open-source. Non-profit AI.</p>
-
-      <a class="try-button" href="/chat" aria-label="Try Glagon">
-        Try Glagon
-      </a>
+      <!-- 스크롤 유도 인디케이터 -->
+      <div class="scroll-indicator fade-in" aria-hidden="true">
+        <span class="arrow"></span>
+        <span class="arrow"></span>
+        <span class="arrow"></span>
+      </div>
     </section>
 
-    <footer class="footer">
-      <a href="https://github.com/ovicoon/glagon" target="_blank" rel="noopener noreferrer">GitHub</a>
-      <span class="footer-separator">·</span>
-      <a href="https://zerodragon.zerodragon.workers.dev" target="_blank" rel="noopener noreferrer">Zero Dragon</a>
-    </footer>
+    <!-- Section 2 -->
+    <section class="landing-section">
+      <div class="landing-content fade-in">
+        <h2>Why we are <span class="glow-text">Glass Clear</span></h2>
+        <p>We are open source, non profit.</p>
+        <p>We don't want to hide anything.</p>
+        
+        <a class="github-link" href="https://github.com/ovicoon/glagon" target="_blank" rel="noopener noreferrer">
+          GitHub &rarr;
+        </a>
+        <a class="github-link" href="https://zerodragon.zerodragon.workers.dev" target="_blank" rel="noopener noreferrer">
+          Zero Dragon &rarr;
+        </a>
+      </div>
+    </section>
+
+    <!-- Section 3 -->
+    <section class="landing-section">
+      <div class="landing-content fade-in">
+        <h2>We'll tell you everything we know</h2>
+        <p>We tell the actual fact, without bias.</p>
+      </div>
+    </section>
+
   </main>
+
+  <script src="/js/landing.js"></script>
 </body>
 </html>
