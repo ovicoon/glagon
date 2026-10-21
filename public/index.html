@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Glagon — a free, open-source, non-profit AI service.">
-  <title>Glagon</title>
+  <meta name="description" content="Glagon: a free, open-source, non-profit AI chat that runs on a real person's computer. The source code is public.">
+  <title>Glagon — Glass Clear AI</title>
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/landing.css">
 </head>
 <body>
   <div class="cursor-spotlight" aria-hidden="true"></div>
-  
+
   <main class="landing-container">
-    
-    <!-- Section 1 -->
+
+    <!-- Section 1: Hero -->
     <section class="landing-section">
       <div class="landing-content fade-in">
         <div class="brand">
@@ -22,14 +22,12 @@
 
         <h1><span class="glow-text">Glass Clear</span> AI</h1>
 
-        <p class="subtitle">Free. Open-source. Non-profit AI.</p>
+        <p class="subtitle">Free. Open-source. Non-profit. Runs on a real person's computer.</p>
 
-        <a class="try-button" href="/chat" aria-label="Try Glagon">
-          Try Glagon
-        </a>
+        <a class="try-button" href="/chat">Try Glagon</a>
+        <p class="cta-note">May be offline at times. <a href="#heads-up">Why?</a></p>
       </div>
 
-      <!-- 스크롤 유도 인디케이터 -->
       <div class="scroll-indicator fade-in" aria-hidden="true">
         <span class="arrow"></span>
         <span class="arrow"></span>
@@ -37,28 +35,47 @@
       </div>
     </section>
 
-    <!-- Section 2 -->
+    <!-- Section 2: Why Glass Clear -->
     <section class="landing-section">
       <div class="landing-content fade-in">
-        <h2>Why we are <span class="glow-text">Glass Clear</span></h2>
-        <p>We are open source, non profit.</p>
-        <p>We don't want to hide anything.</p>
-        
+        <h2>Why we're <span class="glow-text">Glass Clear</span></h2>
+        <p>The AI model behind Glagon runs on the developer's own computer, not in a big company's AI cloud.</p>
+        <p>The code for this website and for the server that talks to the model is public, so you can check how it works yourself.</p>
+
         <a class="github-link" href="https://github.com/ovicoon/glagon" target="_blank" rel="noopener noreferrer">
-          GitHub &rarr;
-        </a>
-        <a class="github-link" href="https://zerodragon.zerodragon.workers.dev" target="_blank" rel="noopener noreferrer">
-          Zero Dragon &rarr;
+          View the source on GitHub &rarr;
         </a>
       </div>
     </section>
 
-    <!-- Section 3 -->
-    <section class="landing-section">
+    <!-- Section 3: Privacy + offline notice + final CTA -->
+    <section class="landing-section" id="heads-up">
       <div class="landing-content fade-in">
-        <h2>We'll tell you everything we know</h2>
-        <p>We tell the actual fact, without bias.</p>
+        <h2>Your privacy, <span class="glow-text">stated plainly</span></h2>
+        <p>Here is what happens to your messages:</p>
+        <ul class="privacy-list">
+          <li>Your browser encrypts each message before sending it. The website host (Cloudflare) and the tunnel (ngrok) pass along only encrypted data.</li>
+          <li>The server on the developer's computer decrypts your message so the AI can read it. This means the developer's computer can see your messages, and the encryption does not protect you from the developer.</li>
+          <li>The published server code does not save messages. It only prints error messages. You can verify this in the source.</li>
+          <li>Glagon does not remember earlier messages. Each message is answered on its own.</li>
+        </ul>
+        <p>Please don't send passwords, personal data, or anything else sensitive.</p>
+
+        <div class="notice" role="note">
+          <strong>Heads up: we're not always online.</strong>
+          Glagon runs on a personal computer, so it may be offline sometimes.
+          If it is, please try again later.
+        </div>
+
+        <a class="try-button" href="/chat">Try Glagon</a>
       </div>
+
+      <footer class="footer">
+        <span>Made by
+          <a href="https://zerodragon.zerodragon.workers.dev" target="_blank" rel="noopener noreferrer">Zero Dragon</a>
+        </span>
+        <a href="https://github.com/ovicoon/glagon" target="_blank" rel="noopener noreferrer">GitHub</a>
+      </footer>
     </section>
 
   </main>

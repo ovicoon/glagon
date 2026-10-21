@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Glagon — secure AI chat.">
-  <title>Glagon - Secure E2EE Chat</title>
+  <meta name="description" content="Chat with Glagon, a free, open-source AI that runs on a personal computer.">
+  <title>Glagon — Chat</title>
   <link rel="stylesheet" href="/css/common.css">
   <link rel="stylesheet" href="/css/chat.css">
 </head>
@@ -15,11 +15,11 @@
     <header>
       <div class="brand">
         <h1>Glagon</h1>
-        <span class="open-source-tag">OSS</span>
+        <span class="open-source-tag">Open source</span>
       </div>
 
       <div id="statusBadge" class="status-badge">
-        <span id="statusText">CONNECTING...</span>
+        <span id="statusText">CONNECTING…</span>
       </div>
     </header>
 
@@ -51,11 +51,23 @@
 
         <p><strong>Glagon is an AI model, not a person.</strong></p>
 
+        <p>
+          Glagon uses a small model and can make mistakes or give wrong
+          answers. Do not rely on it for medical, legal, or financial decisions.
+        </p>
+
+        <p>
+          Messages are encrypted in your browser, but the server on the
+          developer's computer decrypts them to answer. Do not send
+          passwords or other sensitive information. Glagon does not remember
+          earlier messages; each one is answered on its own.
+        </p>
+
         <hr>
 
         <p class="attribution">
           <strong>Open Source Attributions</strong><br>
-          This service uses the <strong>Ministral 3B</strong> model developed by
+          This service uses the <strong>Ministral 3 (3B)</strong> model developed by
           <strong>Mistral AI</strong>, licensed under the
           <a href="https://www.apache.org/licenses/LICENSE-2.0" target="_blank" rel="noopener noreferrer">
             Apache License, Version 2.0

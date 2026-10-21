@@ -75,11 +75,11 @@ async function initSecureSession() {
       []
     );
 
-    updateStatus("E2EE Active", "ready");
+    updateStatus("Encrypted", "ready");
     updateSendButton();
   } catch (error) {
     serverPublicKey = null;
-    updateStatus("Connection Error", "error");
+    updateStatus("Offline or Error", "error");
     updateSendButton();
     console.error(error);
   }
@@ -98,7 +98,7 @@ async function sendPrompt() {
   promptEl.style.height = "auto";
   promptEl.disabled = true;
   updateSendButton();
-  updateStatus("Processing...", "ready");
+  updateStatus("Thinking...", "ready");
 
   try {
     // 1. Generate a temporary browser key pair.
@@ -218,9 +218,9 @@ async function sendPrompt() {
       new TextDecoder().decode(decryptedBuffer)
     );
 
-    updateStatus("E2EE Active", "ready");
+    updateStatus("Encrypted", "ready");
   } catch (error) {
-    updateStatus("Connection Error", "error");
+    updateStatus("Request Failed", "error");
     console.error(error);
   } finally {
     promptEl.disabled = false;

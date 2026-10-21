@@ -1,30 +1,52 @@
 /* ==========================================================================
-   Base Layout & Scroll Snap Settings
+   Design tokens
    ========================================================================== */
-html, body {
+:root {
+  --bg: #0a0a0c;
+  --text-main: #ffffff;
+  --text-strong: #f2f2f2;
+  --text-muted: #a1a1aa;
+  --accent: #8cc8ff;
+  --border-soft: rgba(255, 255, 255, 0.14);
+  --warn: rgba(255, 200, 120, 0.9);
+
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --section-pad-x: 24px;
+  --footer-space: 72px; /* room reserved for the absolute footer */
+}
+
+/* ==========================================================================
+   Base layout & scroll snap
+   ========================================================================== */
+html,
+body {
   margin: 0;
   padding: 0;
   height: 100%;
-  background-color: #0a0a0c;
+  background-color: var(--bg);
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   overflow: hidden;
 }
 
 .landing-container {
   height: 100vh;
+  height: 100dvh; /* mobile browser bars: 100vh stays as fallback */
   overflow-y: scroll;
+  scroll-snap-type: y mandatory;
   scroll-behavior: smooth;
 }
 
 .landing-section {
-  height: 100vh;
+  position: relative;
+  z-index: 1; /* above the spotlight */
+  min-height: 100vh;
+  min-height: 100dvh;
   scroll-snap-align: start;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 32px 24px;
-  position: relative;
+  padding: 32px var(--section-pad-x) var(--footer-space);
   box-sizing: border-box;
   text-align: center;
 }
@@ -38,89 +60,94 @@ html, body {
 }
 
 /* ==========================================================================
-   Typography & Glass Clear Glow Effect
+   Typography
    ========================================================================== */
 .brand {
   display: inline-flex;
   align-items: center;
+  gap: 10px;
   margin-bottom: 34px;
 }
 
 .brand-name {
-  color: var(--text-main, #ffffff);
+  color: var(--text-main);
   font-size: 2rem;
   font-weight: 600;
   letter-spacing: -0.03em;
 }
 
-.oss-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.65);
-  box-shadow: 0 0 14px rgba(255, 255, 255, 0.18);
-}
-
 h1 {
   width: 100%;
-  color: #f2f2f2;
-  font-size: clamp(1.4rem, 5vw, 5rem);
+  margin: 0;
+  color: var(--text-strong);
+  font-size: clamp(2.2rem, 6vw, 5rem); /* single rule, no jump between breakpoints */
   font-weight: 500;
   line-height: 1.1;
   letter-spacing: -0.04em;
   text-align: center;
-  margin: 0;
+  text-wrap: balance;
 }
 
 h2 {
-  color: #f2f2f2;
+  margin: 0 0 20px;
+  color: var(--text-strong);
   font-size: clamp(1.8rem, 4vw, 3.2rem);
   font-weight: 600;
   letter-spacing: -0.03em;
-  margin: 0 0 20px 0;
+  text-wrap: balance;
 }
 
 p {
-  color: var(--text-muted, #a1a1aa);
+  margin: 6px 0;
+  color: var(--text-muted);
   font-size: clamp(0.95rem, 1.8vw, 1.1rem);
   line-height: 1.6;
-  margin: 6px 0;
 }
 
 .subtitle {
   margin: 28px auto 0;
 }
 
-/* Glass Clear Glow 효과 */
+.cta-note {
+  margin: 14px 0 0;
+  font-size: 0.85rem;
+}
+
+.cta-note a {
+  color: var(--text-main);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* ==========================================================================
+   Glass Clear glow
+   ========================================================================== */
 .glow-text {
   color: #ffffff;
-  text-shadow: 
+  text-shadow:
     0 0 8px rgba(255, 255, 255, 0.8),
-    0 0 20px rgba(255, 255, 255, 0.4),
-    0 0 40px rgba(120, 180, 255, 0.3),
-    0 0 80px rgba(120, 180, 255, 0.2);
+    0 0 24px rgba(255, 255, 255, 0.35),
+    0 0 60px rgba(120, 180, 255, 0.3);
   animation: pulse-glow 3.5s ease-in-out infinite alternate;
 }
 
 @keyframes pulse-glow {
-  0% {
-    text-shadow: 
+  from {
+    text-shadow:
       0 0 8px rgba(255, 255, 255, 0.8),
-      0 0 20px rgba(255, 255, 255, 0.4),
-      0 0 40px rgba(120, 180, 255, 0.3),
-      0 0 80px rgba(120, 180, 255, 0.15);
+      0 0 24px rgba(255, 255, 255, 0.35),
+      0 0 60px rgba(120, 180, 255, 0.2);
   }
-  100% {
-    text-shadow: 
+  to {
+    text-shadow:
       0 0 12px rgba(255, 255, 255, 1),
-      0 0 28px rgba(255, 255, 255, 0.6),
-      0 0 50px rgba(140, 200, 255, 0.5),
-      0 0 90px rgba(140, 200, 255, 0.3);
+      0 0 30px rgba(255, 255, 255, 0.55),
+      0 0 70px rgba(140, 200, 255, 0.45);
   }
 }
 
 /* ==========================================================================
-   Buttons & Links
+   Buttons & links
    ========================================================================== */
 .try-button {
   display: inline-flex;
@@ -132,7 +159,7 @@ p {
   border: 1px solid rgba(255, 255, 255, 0.95);
   border-radius: 9px;
   background: rgba(255, 255, 255, 0.94);
-  color: #0a0a0c;
+  color: var(--bg);
   font-size: 0.88rem;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -155,34 +182,89 @@ p {
   display: inline-flex;
   align-items: center;
   margin-top: 24px;
-  color: #ffffff;
+  padding-bottom: 2px;
+  color: var(--text-main);
   font-size: 0.95rem;
   font-weight: 500;
   text-decoration: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.4);
-  padding-bottom: 2px;
   transition: border-color 0.18s ease, opacity 0.18s ease;
 }
 
 .github-link:hover {
-  border-color: #ffffff;
+  border-color: var(--text-main);
   opacity: 0.8;
 }
 
+.try-button:focus-visible,
+.github-link:focus-visible,
+.cta-note a:focus-visible,
+.footer a:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
 /* ==========================================================================
-   Footer Component
+   Notice & placeholder
+   ========================================================================== */
+.notice {
+  max-width: 520px;
+  margin: 28px auto 0;
+  padding: 14px 18px;
+  border: 1px solid var(--border-soft);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  text-align: left;
+}
+
+.notice strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--text-strong);
+}
+
+.privacy-list {
+  width: min(640px, 100%);
+  margin: 12px 0;
+  padding-left: 1.2em;
+  color: var(--text-muted);
+  font-size: clamp(0.9rem, 1.6vw, 1rem);
+  line-height: 1.6;
+  text-align: left;
+}
+
+.privacy-list li {
+  margin: 6px 0;
+}
+
+/* Visible marker so unfinished copy is not shipped by accident */
+.placeholder {
+  margin-top: 16px;
+  padding: 8px 12px;
+  border: 1px dashed rgba(255, 200, 120, 0.6);
+  border-radius: 8px;
+  color: var(--warn);
+  font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Footer
    ========================================================================== */
 .footer {
   position: absolute;
   left: 24px;
   right: 24px;
   bottom: 24px;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 18px;
-  color: var(--text-muted, #a1a1aa);
-  font-size: 0.74rem;
+  color: var(--text-muted);
+  font-size: 0.85rem;
 }
 
 .footer a {
@@ -192,11 +274,11 @@ p {
 }
 
 .footer a:hover {
-  color: var(--text-main, #ffffff);
+  color: var(--text-main);
 }
 
 /* ==========================================================================
-   Scroll Indicator (V-shaped arrows)
+   Scroll indicator
    ========================================================================== */
 .scroll-indicator {
   position: absolute;
@@ -207,7 +289,6 @@ p {
   gap: 4px;
 }
 
-/* V자 화살표 형태 제작 */
 .scroll-indicator .arrow {
   display: block;
   width: 12px;
@@ -219,66 +300,68 @@ p {
   animation: arrow-down 2s infinite ease-in-out;
 }
 
-/* 3개 화살표의 딜레이값 부여 (순차적 애니메이션) */
-.scroll-indicator .arrow:nth-child(1) {
-  animation-delay: 0s;
-}
+.scroll-indicator .arrow:nth-child(2) { animation-delay: 0.2s; }
+.scroll-indicator .arrow:nth-child(3) { animation-delay: 0.4s; }
 
-.scroll-indicator .arrow:nth-child(2) {
-  animation-delay: 0.2s;
-}
-
-.scroll-indicator .arrow:nth-child(3) {
-  animation-delay: 0.4s;
-}
-
-/* 아래로 스르륵 내려가는 애니메이션 */
 @keyframes arrow-down {
-  0% {
-    opacity: 0;
-    transform: rotate(45deg) translate(-4px, -4px);
-  }
-  50% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: rotate(45deg) translate(4px, 4px);
-  }
+  0%   { opacity: 0; transform: rotate(45deg) translate(-4px, -4px); }
+  50%  { opacity: 1; }
+  100% { opacity: 0; transform: rotate(45deg) translate(4px, 4px); }
 }
 
 /* ==========================================================================
-   Fade In Scroll Animation Classes
+   Fade-in on scroll
+   Only hidden when JS is running (html.js), so content never disappears
+   if the script fails. Add to <head>:
+   <script>document.documentElement.classList.add('js')</script>
    ========================================================================== */
 .fade-in {
+  transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out);
+}
+
+html.js .fade-in {
   opacity: 0;
   transform: translateY(24px);
-  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 
-.fade-in.is-visible {
+html.js .fade-in.is-visible {
   opacity: 1;
   transform: translateY(0);
 }
 
 /* ==========================================================================
-   Media Queries
+   Cursor spotlight (behind content)
    ========================================================================== */
-@media (max-width: 800px) {
-  h1 {
-    font-size: clamp(1.3rem, 6vw, 3.2rem);
+.cursor-spotlight {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--x, 50%) var(--y, 50%),
+    rgba(140, 200, 255, 0.15),
+    transparent 80%
+  );
+  transition: opacity 0.5s ease;
+}
+
+@media (hover: none) and (pointer: coarse) {
+  .cursor-spotlight {
+    display: none;
   }
 }
 
+/* ==========================================================================
+   Responsive
+   ========================================================================== */
 @media (max-width: 600px) {
-  .landing-section {
-    padding: 24px 18px;
+  :root {
+    --section-pad-x: 18px;
   }
 
-  h1 {
-    font-size: clamp(2.2rem, 10vw, 3.8rem);
+  .landing-section {
+    padding-top: 24px;
   }
 
   .subtitle {
@@ -295,28 +378,25 @@ p {
 }
 
 /* ==========================================================================
-   Cursor Spotlight Effect
+   Reduced motion
    ========================================================================== */
-.cursor-spotlight {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 1;
-  /* 커서 위치(var(--x), var(--y))를 중심으로 은은하게 퍼지는 조명 */
-  background: radial-gradient(
-    600px circle at var(--x, 50%) var(--y, 50%),
-    rgba(140, 200, 255, 0.3),
-    transparent 80%
-  );
-  transition: opacity 0.5s ease;
-}
+@media (prefers-reduced-motion: reduce) {
+  .landing-container {
+    scroll-behavior: auto;
+  }
 
-/* 터치 기기(모바일/태블릿)에서는 조명 효과 숨김 */
-@media (hover: none) and (pointer: coarse) {
-  .cursor-spotlight {
-    display: none;
+  .glow-text,
+  .scroll-indicator .arrow {
+    animation: none;
+  }
+
+  .scroll-indicator .arrow {
+    opacity: 0.7;
+  }
+
+  .fade-in,
+  .try-button,
+  .github-link {
+    transition: none;
   }
 }
