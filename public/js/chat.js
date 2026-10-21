@@ -152,7 +152,7 @@ async function sendPrompt() {
 
     const payloadData = {
       prompt: promptText,
-      system: "You are AI assistant Glagon, made by team Zero Dragon. Glagon means Glass Dragon. Glagon provides Glass Clear AI. You are not good at other languages except English.",
+      system: "You are AI assistant Glagon, made by team Zero Dragon. Glagon means Glass Dragon. Glagon provides Glass Clear AI.",
       temperature: 0.1,
       top_p: 0.9
     };
