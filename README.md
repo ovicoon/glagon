@@ -53,3 +53,19 @@ The Worker serves:
 - `/chat` — chat UI
 - `/api/key` — backend key proxy
 - `/api/chat` — encrypted chat proxy
+- `/api/v1/chat` — API-key protected chat (see below)
+
+## Personal API
+
+`POST /api/v1/chat` takes plain JSON and requires an `API_KEY` secret.
+The Worker handles the encryption to the backend, so the Worker itself sees your prompt and the answer.
+
+Set the key for local development in `.dev.vars` (`API_KEY=...`) and for production with:
+
+`npx wrangler secret put API_KEY`
+
+```
+curl -X POST https://<your-worker>/api/v1/chat   -H "Authorization: Bearer $GLAGON_API_KEY"   -H "Content-Type: application/json"   -d '{"prompt": "Hello", "temperature": 0.1}'
+```
+
+Only `prompt` is required (`system`, `temperature` and `top_p` are optional). The answer is `{"response": "..."}`.
