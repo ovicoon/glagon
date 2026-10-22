@@ -106,7 +106,7 @@ async def proxy_generate(request: Request):
                 f"{OLLAMA_URL}/api/generate",
                 json=payload_data,
                 headers={"Content-Type": "application/json"},
-                timeout=600.0,
+                timeout=100.0,
             )
 
         if response.status_code != 200:
